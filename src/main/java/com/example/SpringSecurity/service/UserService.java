@@ -1,5 +1,6 @@
 package com.example.SpringSecurity.service;
 
+import com.example.SpringSecurity.aspect.TrackUserAction;
 import com.example.SpringSecurity.domain.Note;
 import com.example.SpringSecurity.repository.NoteRepository;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ public class UserService {
      * вывод всеx заметок
      * @return - список заметок
      */
+    @TrackUserAction
     public List<Note> getAllNotes(){
         return noteRepository.findAll();
     }
@@ -31,6 +33,7 @@ public class UserService {
      * @param id - Id ребуемой заметки
      * @return - заметка с соответствующим id, либо null
      */
+    @TrackUserAction
     public Note getById(Long id){
         return noteRepository.findById(id).orElse(null);
     }
@@ -40,6 +43,7 @@ public class UserService {
      * @param note - данные заметки, которую надо сохранить
      * @return - созданная заметка
      */
+    @TrackUserAction
     public Note createNote(Note note){
         note.setCreationDate(LocalDateTime.now());
         return noteRepository.save(note);
@@ -50,6 +54,7 @@ public class UserService {
      * Удаление заметки по Id
      * @param id - id заметки, которую необходимо удалить
      */
+    @TrackUserAction
     public void deleteById(Long id){
         noteRepository.deleteById(id);
     }
@@ -61,6 +66,7 @@ public class UserService {
      * @param note - объект с данными, которые надо вставить в выбранную заметку
      * @return - отредактированная заметка, либо исключение с текстом об отстутствии заметки с выбранным id
      */
+    @TrackUserAction
     public Note editNote(Long id, Note note){
         Note oldNote = noteRepository.findById(id).orElse(null);
         if(oldNote != null){

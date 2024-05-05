@@ -25,28 +25,28 @@ public class HomeController {
     }
     @GetMapping("/admin/notes")
     public ResponseEntity<List<Note>> AdminNotes() {
-        return new ResponseEntity<>(userService.getAllNotes(), HttpStatus.OK);
+        return new ResponseEntity<>(adminService.getAllNotes(), HttpStatus.OK);
     }
 
     @GetMapping("/admin/{id}")
     public ResponseEntity<Note> AdminGetById(@PathVariable Long id){
-        return new ResponseEntity<>(userService.getById(id),HttpStatus.FOUND);
+        return new ResponseEntity<>(adminService.getById(id),HttpStatus.FOUND);
     }
 
     @PostMapping("/admin/create")
     public ResponseEntity<Note> AdminCreateNewNote(@RequestBody Note note){
-        return new ResponseEntity<>(userService.createNote(note), HttpStatus.CREATED);
+        return new ResponseEntity<>(adminService.createNote(note), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/admin/delete/{id}")
     public ResponseEntity<Note> AdminDeleteNote(@PathVariable Long id){
-        userService.deleteById(id);
+        adminService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/admin/edit/{id}")
     public ResponseEntity<Note> AdminEditNote(@PathVariable Long id, @RequestBody Note note){
-        return new ResponseEntity<>(userService.editNote(id,note), HttpStatus.I_AM_A_TEAPOT);
+        return new ResponseEntity<>(adminService.editNote(id,note), HttpStatus.I_AM_A_TEAPOT);
     }
 
     @GetMapping("/user/notes")
