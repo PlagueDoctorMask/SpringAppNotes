@@ -16,3 +16,9 @@ security.enable-csrf: false
 logging:
   level:
     org.springframework.security.web: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: metrics, prometheus

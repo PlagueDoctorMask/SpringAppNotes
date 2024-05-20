@@ -13,9 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UserService {
 
-//    public String getText() {
-//        return "User";
-//    }
+
     private final NoteRepository noteRepository;
 
     /**
