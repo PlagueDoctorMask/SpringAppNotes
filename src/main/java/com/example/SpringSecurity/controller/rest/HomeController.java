@@ -2,6 +2,7 @@ package com.example.SpringSecurity.controller.rest;
 
 import com.example.SpringSecurity.domain.Note;
 import com.example.SpringSecurity.service.AdminService;
+import com.example.SpringSecurity.service.FileGateway;
 import com.example.SpringSecurity.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,8 @@ public class HomeController {
 
     private final AdminService adminService;
 
+    private final FileGateway fileGateway;
+
     @GetMapping("/admin")
     public ResponseEntity<String> admin(){
         return new ResponseEntity<>(adminService.AdminFeature(),HttpStatus.I_AM_A_TEAPOT);
@@ -35,6 +38,7 @@ public class HomeController {
 
     @PostMapping("/admin/create")
     public ResponseEntity<Note> AdminCreateNewNote(@RequestBody Note note){
+        fileGateway.writeToFile("AdminNotes.txt", note.toString());
         return new ResponseEntity<>(adminService.createNote(note), HttpStatus.CREATED);
     }
 
